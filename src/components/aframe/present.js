@@ -28,9 +28,11 @@ export const present = af.registerComponent('present', {
     el.setObject3D('mesh', this.mesh);
     el.addEventListener('collide', (e) => {
       console.log('Collided with:' + e.detail.body.el.getAttribute('name'));
+      if(e.detail.body.el.getAttribute('name') === 'chimney') {
+        e.detail.body.el.setAttribute('color', 'blue')
+      }
       if(collided === false && e.detail.body.el.getAttribute('name') === 'chimney')
         collided = true
-        e.detail.body.el.setAttribute('color', 'blue')
         setTimeout(() => {
           if(el.body) {
             el.body.world.removeBody(el.body)
@@ -40,7 +42,7 @@ export const present = af.registerComponent('present', {
     })
 
     el.addEventListener('body-loaded', () => {
-      el.body.force.set(target.x * force, force * 20, target.z * force)
+      el.body.force.set(target.x * force, force * 10, target.z * force)
     })
   }
 });
